@@ -121,7 +121,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Customers.cpp" />
     <ClCompile Include="DeliveryService.cpp" />
     <ClCompile Include="Experiment.cpp" />
     <ClCompile Include="MainForm.cpp" />

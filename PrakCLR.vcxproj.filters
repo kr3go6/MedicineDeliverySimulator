@@ -21,9 +21,6 @@
     <ClCompile Include="Medicine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Customers.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Order.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

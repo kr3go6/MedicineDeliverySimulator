@@ -22,7 +22,6 @@ ref struct Customer
 public:
 	Customer() {}
 	Customer(System::String^ name, System::String^ phone, System::String^ addr, System::String^ card) : name(name), phone(phone), address(addr), discount_card_num(card) {}
-	Order^ MakeOrder();
 };
 
 ref class RegularCustomer : Customer
