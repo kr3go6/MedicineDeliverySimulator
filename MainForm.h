@@ -74,6 +74,7 @@ namespace PrakCLR {
 	private: System::Windows::Forms::RichTextBox^ couriersStatsPanel;
 	private: System::Windows::Forms::RichTextBox^ whStatePanel;
 	private: System::Windows::Forms::RichTextBox^ ordersListPanel;
+	private: System::Windows::Forms::Label^ discountLabel;
 
 
 
@@ -100,6 +101,7 @@ namespace PrakCLR {
 			this->durationHintLabel = (gcnew System::Windows::Forms::Label());
 			this->durationTextBox = (gcnew System::Windows::Forms::TextBox());
 			this->discountPanel = (gcnew System::Windows::Forms::Panel());
+			this->discountLabel = (gcnew System::Windows::Forms::Label());
 			this->discountCardLabel = (gcnew System::Windows::Forms::Label());
 			this->discountCard = (gcnew System::Windows::Forms::TextBox());
 			this->retailMarginLabel = (gcnew System::Windows::Forms::Label());
@@ -188,6 +190,7 @@ namespace PrakCLR {
 			// discountPanel
 			// 
 			this->discountPanel->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->discountPanel->Controls->Add(this->discountLabel);
 			this->discountPanel->Controls->Add(this->discountCardLabel);
 			this->discountPanel->Controls->Add(this->discountCard);
 			this->discountPanel->Controls->Add(this->retailMarginLabel);
@@ -195,13 +198,24 @@ namespace PrakCLR {
 			this->discountPanel->Controls->Add(this->discountsLabel);
 			this->discountPanel->Location = System::Drawing::Point(-5, 169);
 			this->discountPanel->Name = L"discountPanel";
-			this->discountPanel->Size = System::Drawing::Size(201, 167);
+			this->discountPanel->Size = System::Drawing::Size(201, 197);
 			this->discountPanel->TabIndex = 1;
+			// 
+			// discountLabel
+			// 
+			this->discountLabel->AutoSize = true;
+			this->discountLabel->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.8F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->discountLabel->Location = System::Drawing::Point(63, 111);
+			this->discountLabel->Name = L"discountLabel";
+			this->discountLabel->Size = System::Drawing::Size(78, 22);
+			this->discountLabel->TabIndex = 8;
+			this->discountLabel->Text = L"Скидка";
 			// 
 			// discountCardLabel
 			// 
 			this->discountCardLabel->AutoSize = true;
-			this->discountCardLabel->Location = System::Drawing::Point(3, 133);
+			this->discountCardLabel->Location = System::Drawing::Point(3, 173);
 			this->discountCardLabel->Name = L"discountCardLabel";
 			this->discountCardLabel->Size = System::Drawing::Size(196, 16);
 			this->discountCardLabel->TabIndex = 7;
@@ -211,7 +225,7 @@ namespace PrakCLR {
 			// 
 			this->discountCard->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 13.8F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->discountCard->Location = System::Drawing::Point(3, 96);
+			this->discountCard->Location = System::Drawing::Point(3, 136);
 			this->discountCard->Name = L"discountCard";
 			this->discountCard->Size = System::Drawing::Size(197, 34);
 			this->discountCard->TabIndex = 6;
@@ -245,11 +259,11 @@ namespace PrakCLR {
 			this->discountsLabel->AutoSize = true;
 			this->discountsLabel->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.8F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->discountsLabel->Location = System::Drawing::Point(10, -1);
+			this->discountsLabel->Location = System::Drawing::Point(63, 0);
 			this->discountsLabel->Name = L"discountsLabel";
-			this->discountsLabel->Size = System::Drawing::Size(178, 22);
+			this->discountsLabel->Size = System::Drawing::Size(90, 22);
 			this->discountsLabel->TabIndex = 3;
-			this->discountsLabel->Text = L"Скидки и наценки";
+			this->discountsLabel->Text = L"Наценка";
 			// 
 			// couriersPanel
 			// 
@@ -257,9 +271,9 @@ namespace PrakCLR {
 			this->couriersPanel->Controls->Add(this->label1);
 			this->couriersPanel->Controls->Add(this->couriersAmountTextBox);
 			this->couriersPanel->Controls->Add(this->couriersPanelLabel);
-			this->couriersPanel->Location = System::Drawing::Point(-5, 342);
+			this->couriersPanel->Location = System::Drawing::Point(-5, 372);
 			this->couriersPanel->Name = L"couriersPanel";
-			this->couriersPanel->Size = System::Drawing::Size(201, 135);
+			this->couriersPanel->Size = System::Drawing::Size(201, 105);
 			this->couriersPanel->TabIndex = 1;
 			// 
 			// label1
@@ -447,6 +461,8 @@ namespace PrakCLR {
 			// 
 			this->couriersStatsPanel->BackColor = System::Drawing::SystemColors::MenuBar;
 			this->couriersStatsPanel->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->couriersStatsPanel->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.8F, System::Drawing::FontStyle::Regular,
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
 			this->couriersStatsPanel->Location = System::Drawing::Point(202, 453);
 			this->couriersStatsPanel->Name = L"couriersStatsPanel";
 			this->couriersStatsPanel->ReadOnly = true;
@@ -545,6 +561,8 @@ private: int ValidateTextBox(System::String^ setting, int minValue, int maxValue
 	   static Experiment^ exp;
 
 private: System::Void startButton_Click(System::Object^ sender, System::EventArgs^ e) {
+	startButton->Text = "СТАРТ";
+
 	int duration = ValidateTextBox(durationTextBox->Text, 10, 25, true); if (duration == -1) return;
 	int meds_amount = ValidateTextBox(medicineAmountTextBox->Text, 5, 15, true); if (meds_amount == -1) return;
 	int orders_from = ValidateTextBox(ordersAmountFromTextBox->Text, 1, 100, true); if (orders_from == -1) return;
@@ -555,6 +573,16 @@ private: System::Void startButton_Click(System::Object^ sender, System::EventArg
 	int discount = ValidateTextBox(discountCard->Text, 0, 100, true); if (discount == -1) return;
 	int couriers_cnt = ValidateTextBox(couriersAmountTextBox->Text, 3, 9, true); if (couriers_cnt == -1) return;
 
+	durationTextBox->Enabled = true;
+	medicineAmountTextBox->Enabled = true;
+	retailMarginTextBox->Enabled = true;
+	discountCard->Enabled = true;
+	couriersAmountTextBox->Enabled = true;
+	ordersAmountFromTextBox->Enabled = true;
+	ordersAmountToTextBox->Enabled = true;
+	partsInOrderFromTextBox->Enabled = true;
+	partsInOrderToTextBox->Enabled = true;
+
 	exp = %Experiment(duration, couriers_cnt, orders_from, orders_to, orders_items_from, orders_items_to, retail_margin, discount, meds_amount);
 	whStatePanel->Text = exp->wh->GetStateLog();
 	couriersStatsPanel->Text = exp->service->GetDeliveryLog();
@@ -562,13 +590,31 @@ private: System::Void startButton_Click(System::Object^ sender, System::EventArg
 	dayLabel->Text = "Day " + exp->cur_day.ToString();
 }
 private: System::Void stepButton_Click(System::Object^ sender, System::EventArgs^ e) {
+	auto start_balance = exp->balance.ToString();
+	auto start_spent_on_resupply = exp->spent_on_resupply;
+	startButton->Text = "ЗАНОВО";
 	exp->MakeStep();
+	auto expenses = exp->spent_on_resupply - start_spent_on_resupply;
 	couriersStatsPanel->Text = exp->service->GetDeliveryLog();
-	couriersStatsPanel->Text += "Balance: " + exp->balance.ToString();
+	couriersStatsPanel->Text += "=======\n" + "Start of the day: " + start_balance + "\n";
+	couriersStatsPanel->Text += "Income:    " + exp->income_today + "\n";
+	couriersStatsPanel->Text += "Expenses: " + expenses + "\n";
+	couriersStatsPanel->Text += "Profit:       " + (exp->income_today - expenses) + "\n";
+	couriersStatsPanel->Text += "End of the day: " + exp->balance.ToString();
 	ordersListPanel->Text = exp->orders_log;
 	dayLabel->Text = "Day " + exp->cur_day.ToString();
 	whStatePanel->Text = exp->wh->GetStateLog();
 	exp->average_courier_load += exp->service->EndDay();
+
+	durationTextBox->Enabled = false;
+	medicineAmountTextBox->Enabled = false;
+	retailMarginTextBox->Enabled = false;
+	discountCard->Enabled = false;
+	couriersAmountTextBox->Enabled = false;
+	ordersAmountFromTextBox->Enabled = false;
+	ordersAmountToTextBox->Enabled = false;
+	partsInOrderFromTextBox->Enabled = false;
+	partsInOrderToTextBox->Enabled = false;
 }
 private: System::Void ffwdButton_Click(System::Object^ sender, System::EventArgs^ e) {
 	exp->FfwdToEnd();
@@ -577,6 +623,16 @@ private: System::Void ffwdButton_Click(System::Object^ sender, System::EventArgs
 	ordersListPanel->Text = exp->orders_log;
 	dayLabel->Text = "Day " + exp->cur_day.ToString();
 	whStatePanel->Text = exp->wh->GetStateLog();
+
+	durationTextBox->Enabled = true;
+	medicineAmountTextBox->Enabled = true;
+	retailMarginTextBox->Enabled = true;
+	discountCard->Enabled = true;
+	couriersAmountTextBox->Enabled = true;
+	ordersAmountFromTextBox->Enabled = true;
+	ordersAmountToTextBox->Enabled = true;
+	partsInOrderFromTextBox->Enabled = true;
+	partsInOrderToTextBox->Enabled = true;
 }
 private: System::Void exitButton_Click(System::Object^ sender, System::EventArgs^ e) {
 	this->Close();

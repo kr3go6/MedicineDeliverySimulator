@@ -1,17 +1,21 @@
 #include "Experiment.h"
 
 void Experiment::MakeStep() {
+	income_today = 0;
+
 	if (cur_day >= day_to) {
 		orders_log = "SIMULATION END\n";
 		orders_log += "Current balance: " + balance + "\n";
 		orders_log += "Spent on resupply: " + spent_on_resupply + "\n";
-		orders_log += "Average courier load: " + average_courier_load * 100.0f / (day_to * couriers_cnt * 7) + "%\n";
+		orders_log += "Average courier load: " + (average_courier_load * 100.0f / (day_to * couriers_cnt * 7)).ToString("f") + "%\n";
 		return;
 	}
 
 	Random^ rand = gcnew Random();
 
-	orders_log = "";
+	auto orders_num = rand->Next(orders_cnt_from, orders_cnt_to);
+
+	orders_log = "ORDERS TODAY: " + orders_num + "\n";
 
 	wh->ReceiveFromReadyRequests();
 
@@ -20,7 +24,7 @@ void Experiment::MakeStep() {
 		"Anastasia", "Katya", "Anya"
 	};
 
-	for (int buyers_cnt = 0; buyers_cnt < rand->Next(orders_cnt_from, orders_cnt_to); buyers_cnt++) {
+	for (int buyers_cnt = 0; buyers_cnt < orders_num; buyers_cnt++) {
 		Customer^ customer = gcnew Customer(possible_names[rand->Next(possible_names->Length)],
 			"+" + static_cast<unsigned long long>(rand->Next(7000, 7999)) +
 			static_cast<unsigned long long>(rand->Next(1000000, 9999999)), "Moscow, Russia", rand->Next(0, 2).ToString());
@@ -55,6 +59,7 @@ void Experiment::MakeStep() {
 		orders_log += customer->name + "; " + customer->phone + "; ";
 		orders_log += order->items->Count + " positions; got money: " + cost + "\n";
 
+		income_today += cost;
 		balance += cost;
 	}
 
@@ -75,5 +80,5 @@ void Experiment::FfwdToEnd() {
 	orders_log = "SIMULATION END\n";
 	orders_log += "Current balance: " + balance + "\n";
 	orders_log += "Spent on resupply: " + spent_on_resupply + "\n";
-	orders_log += "Average courier load: " + average_courier_load * 100.0f / (day_to * couriers_cnt * 7) + "%\n";
+	orders_log += "Average courier load: " + (average_courier_load * 100.0f / (day_to * couriers_cnt * 7)).ToString("f") + "%\n";
 }

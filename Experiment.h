@@ -51,6 +51,7 @@ ref class Experiment
 {
 public:
 	double balance;
+	double income_today;
 	double spent_on_resupply;
 	unsigned cur_day;
 	unsigned day_to;
